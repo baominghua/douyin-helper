@@ -7,6 +7,17 @@
 
 ---
 
+## 下载
+
+不想自己编译的话，直接用打包好的：
+
+**[Releases → v1.0.0](https://github.com/baominghua/douyin-helper/releases/tag/v1.0.0)**
+`DouyinHelper-v1.0.0-win-x64.zip`（96.5 MB，从 229 MB 压到 96.5 MB）
+
+解压后双击 `抖音下载助手.exe` 即可运行，**不需要装 Node.js 或任何依赖**，支持 Windows 10 / 11 x64。
+
+---
+
 ## 界面
 
 **主窗口** —— 在抖音里点「分享 → 复制链接」，这边自动解析并下载，按日期归档：
