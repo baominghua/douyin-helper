@@ -49,8 +49,10 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 /* ------------------------------------------------------------------ */
 
 function logLine(...args) {
+  const d = new Date();
+  const p2 = (n) => String(n).padStart(2, '0');
   const text =
-    new Date().toISOString().slice(11, 19) +
+    `${p2(d.getHours())}:${p2(d.getMinutes())}:${p2(d.getSeconds())}` +
     '  ' +
     args.map((a) => (typeof a === 'string' ? a : JSON.stringify(a))).join(' ');
   try {
