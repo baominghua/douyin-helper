@@ -1,0 +1,23 @@
+# 依赖
+node_modules/
+package-lock.json.bak
+
+# 运行日志与诊断输出
+logs/
+*.log
+*.out
+
+# 一次性诊断脚本与测试产物
+test/
+scripts/*.txt
+scripts/verify-result.json
+
+# 打包产物
+dist/
+out/
+build/*.exe
+
+# 系统
+.DS_Store
+Thumbs.db
+desktop.ini

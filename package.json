@@ -1,0 +1,13 @@
+{
+  "name": "douyin-helper",
+  "version": "1.0.0",
+  "description": "抖音视频下载小助手（桌面端）",
+  "main": "main.js",
+  "author": "FAFA",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^33.2.0"
+  }
+}

@@ -1,0 +1,319 @@
+/* 抖音下载助手 —— 悬浮小条 */
+
+:root {
+  --red: #fe2c55;
+  --cyan: #00f2ea;
+  --ink: #1f2329;
+  --ink-2: #8a8f99;
+  --ink-3: #b6bac2;
+  --line: rgba(0, 0, 0, .07);
+  --field: #f2f3f5;
+  --ok: #12b76a;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+  user-select: none;
+  cursor: default;
+  font-family: "Segoe UI", "Microsoft YaHei UI", "PingFang SC", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  padding: 6px;
+}
+
+.panel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(20, 22, 28, .11), 0 1px 3px rgba(20, 22, 28, .05);
+  overflow: hidden;
+  transition: opacity .18s ease;
+}
+
+.panel.dim {
+  opacity: .55;
+}
+
+/* ---------------- 顶栏 ---------------- */
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 36px;
+  padding: 0 8px 0 12px;
+  flex: none;
+  -webkit-app-region: drag;
+  border-bottom: 1px solid rgba(0, 0, 0, .045);
+  background: linear-gradient(180deg, #fcfcfd, #fafafb);
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ok);
+  flex: none;
+  box-shadow: 0 0 0 3px rgba(18, 183, 106, .14);
+  transition: background .2s ease, box-shadow .2s ease;
+}
+
+.dot.off {
+  background: var(--ink-3);
+  box-shadow: 0 0 0 3px rgba(182, 186, 194, .16);
+}
+
+.dot.busy {
+  background: var(--red);
+  box-shadow: 0 0 0 3px rgba(254, 44, 85, .16);
+  animation: pulse 1.1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(254, 44, 85, .16); }
+  50% { box-shadow: 0 0 0 5px rgba(254, 44, 85, .07); }
+}
+
+.name {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: .1px;
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ops {
+  display: flex;
+  gap: 1px;
+  -webkit-app-region: no-drag;
+}
+
+.op {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: background .14s ease, color .14s ease;
+}
+
+.op:hover {
+  background: rgba(0, 0, 0, .055);
+  color: var(--ink);
+}
+
+.op:active {
+  transform: scale(.94);
+}
+
+.op.close:hover {
+  background: rgba(254, 44, 85, .1);
+  color: var(--red);
+}
+
+.op.off {
+  color: var(--ink-3);
+}
+
+.op.off:hover {
+  color: var(--ink);
+}
+
+/* ---------------- 输入 ---------------- */
+
+.entry {
+  display: flex;
+  gap: 6px;
+  padding: 10px 12px 0;
+  flex: none;
+}
+
+#inp {
+  flex: 1;
+  min-width: 0;
+  height: 34px;
+  padding: 0 10px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: var(--field);
+  font-size: 12.5px;
+  font-family: inherit;
+  color: var(--ink);
+  outline: none;
+  user-select: text;
+  cursor: text;
+  transition: background .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+
+#inp::placeholder {
+  color: var(--ink-3);
+}
+
+#inp:focus {
+  background: #fff;
+  border-color: rgba(254, 44, 85, .5);
+  box-shadow: 0 0 0 3px rgba(254, 44, 85, .1);
+}
+
+.go {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 9px;
+  background: var(--red);
+  color: #fff;
+  cursor: pointer;
+  transition: filter .15s ease, transform .1s ease;
+}
+
+.go:hover {
+  filter: brightness(1.06);
+}
+
+.go:active {
+  transform: scale(.95);
+}
+
+.go:disabled {
+  background: #e6e7ea;
+  color: #b0b4bb;
+  cursor: default;
+  filter: none;
+}
+
+/* ---------------- 任务 ---------------- */
+
+.task {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 12px 12px;
+  flex: 1;
+  min-height: 0;
+}
+
+.shot {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border-radius: 8px;
+  background: #f6f7f9;
+  border: 1px solid rgba(0, 0, 0, .045);
+  display: grid;
+  place-items: center;
+  color: #d3d6dc;
+  overflow: hidden;
+  position: relative;
+}
+
+.shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.shot.has-img {
+  color: transparent;
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.line1 {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.line2 {
+  font-size: 11.5px;
+  color: var(--ink-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.line2.ok {
+  color: var(--ok);
+}
+
+.line2.err {
+  color: var(--red);
+}
+
+.line1.shimmer {
+  color: var(--ink-2);
+  font-weight: 500;
+}
+
+/* ---------------- 进度 ---------------- */
+
+.track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: transparent;
+  overflow: hidden;
+}
+
+.track i {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: 0 2px 2px 0;
+  background: linear-gradient(90deg, var(--red), #ff6b81);
+  transition: width .22s ease;
+}
+
+.track.idle i {
+  width: 0 !important;
+}
+
+.track.done i {
+  background: var(--ok);
+}
+
+.track.err i {
+  background: var(--red);
+  opacity: .35;
+}
